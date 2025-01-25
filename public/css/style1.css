@@ -1,0 +1,187 @@
+/* Estilos generales para el cuerpo */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Fondo claro */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    
+  }
+
+  header {
+    background-color: #3a4a7c; /* Color más oscuro que contrasta con los tonos pastel */
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  nav ul li {
+    margin: 0 15px;
+  }
+
+  nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  nav ul li a:hover, nav ul li a.active {
+    background-color: #5b6db1;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Título principal */
+  h1 {
+    color: #5b6db1; /* Color pastel para el título */
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Formulario para agregar items */
+  #item-form {
+    background-color: #ffffff; /* Fondo blanco para el formulario */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 300px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  #item-form label {
+    font-size: 1rem;
+    color: #7a7a7a; /* Color sutil para las etiquetas */
+  }
+  
+  #item-form input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    outline: none;
+    transition: border 0.3s ease;
+  }
+  
+  #item-form input:focus {
+    border: 1px solid #5b6db1; /* Resaltar el borde del input al hacer foco */
+  }
+  
+  /* Botón de agregar item */
+  #item-form button {
+    padding: 12px;
+    background-color: #5b6db1; /* Tonos pastel para el botón */
+    color: white;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #item-form button:hover {
+    background-color: #4a59a1; /* Color de hover */
+  }
+  
+  /* Botones para obtener y limpiar */
+  button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 1rem;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #obtener_items {
+    background-color: #6db9b8; /* Tonalidad pastel de verde azulado */
+  }
+  
+  #limpiar_items {
+    background-color: #f76c6c; /* Tonalidad pastel de rojo rosado */
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Estilo para la lista de items */
+  ul#items-list {
+    list-style-type: none;
+    padding: 0;
+    width: 80%;
+    max-width: 500px;
+    margin-top: 20px;
+  }
+  
+  ul#items-list li {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para cada item */
+    font-size: 1rem;
+    color: #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  ul#items-list li:hover {
+    background-color: #f4f4f4; /* Color de fondo cuando pasas el ratón */
+  }
+  
+  /* Responsividad para dispositivos móviles */
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+    }
+
+    main {
+      padding: 10px;
+    }
+  
+    #item-form {
+      width: 100%;
+    }
+  
+    ul#items-list {
+      width: 100%;
+    }
+
+    nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    nav ul li {
+      margin: 5px 0;
+    }
+  
+  }
+  
