@@ -1,8 +1,22 @@
 const apiUrl = 'http://localhost:3000/api/items'; // URL de la API para los items
 
+// Obtener el token JWT desde el almacenamiento local
+const token = localStorage.getItem('token');
+
 // Función para obtener todos los items desde el backend
 function getItems() {
-  fetch(apiUrl)
+  if (!token) {
+    alert("Debes iniciar sesión para ver los items.");
+    window.location.href = '../index.html'; // Redirigir al login si no hay token
+    return;
+  }
+
+  fetch(apiUrl, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}` // Incluir el token en el encabezado
+    }
+  })
     .then(response => response.json())
     .then(items => {
       const itemsList = document.getElementById('items-list');
@@ -11,7 +25,6 @@ function getItems() {
       items.forEach(item => {
         const li = document.createElement('li');
         li.textContent = `${item.name} - ${item.description}`;
-        id=item._id
         const editarBoton = document.createElement('button');
         editarBoton.textContent = 'Editar';
         editarBoton.style.backgroundColor = '#6db9b8';
@@ -27,87 +40,94 @@ function getItems() {
 
         itemsList.appendChild(li);
       });
-    });
+    })
+    .catch(error => console.error('Error al obtener los items:', error));
 }
 
 // Modificamos el event listener del formulario para manejar tanto POST como PUT
 document.getElementById('item-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-  
-    const name = document.getElementById('name').value;
-    const description = document.getElementById('description').value;
-    const itemId = e.target.dataset.id;
-  
-    if (itemId) {
-      // Si hay un ID, actualizamos el item existente
-       updateItem(itemId, name, description);
-    } else {
-      // Si no hay ID, creamos un nuevo item
-      try {
-        const response = fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, description }),
-        });
-  
-        try {
-            alert("creado correctamente");
-         // e.target.reset();
-         document.getElementById('name').value = '';
-         document.getElementById('description').value = '';
-        //  getItems();
-        } catch (error) {
-          console.error('Error al agregar el item');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    }
-  });
-  
+  e.preventDefault();
+
+  const name = document.getElementById('name').value;
+  const description = document.getElementById('description').value;
+  const itemId = e.target.dataset.id;
+
+  if (itemId) {
+    // Si hay un ID, actualizamos el item existente
+    updateItem(itemId, name, description);
+  } else {
+    // Si no hay ID, creamos un nuevo item
+    createItem(name, description);
+  }
+});
+
+// Función para crear un nuevo item (POST)
+function createItem(name, description) {
+  if (!token) {
+    alert("Debes iniciar sesión para crear un item.");
+    window.location.href = '../index.html'; // Redirigir al login si no hay token
+    return;
+  }
+
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}` // Incluir el token en el encabezado
+    },
+    body: JSON.stringify({ name, description })
+  })
+    .then(response => response.json())
+    .then(() => {
+      alert("Item creado correctamente");
+      getItems(); // Actualizar la lista de items
+      document.getElementById('item-form').reset(); // Limpiar el formulario
+    })
+    .catch(error => console.error('Error al crear el item:', error));
+}
 
 // Función para actualizar un item (PUT)
 function updateItem(id, name, description) {
-  try {
-    const response = fetch(`${apiUrl}/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, description }),
-    });
-    
+  if (!token) {
+    alert("Debes iniciar sesión para actualizar un item.");
+    window.location.href = '../index.html'; // Redirigir al login si no hay token
+    return;
+  }
 
-    try {
+  fetch(`${apiUrl}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}` // Incluir el token en el encabezado
+    },
+    body: JSON.stringify({ name, description })
+  })
+    .then(response => response.json())
+    .then(() => {
       getItems(); // Actualizamos la lista de items
       document.getElementById('item-form').reset(); // Limpiamos el formulario
       document.getElementById('item-form').dataset.id = ''; // Limpiamos el ID guardado
-    } catch (error) {
-      console.error('Error al actualizar el item');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
+    })
+    .catch(error => console.error('Error al actualizar el item:', error));
 }
 
 // Función para eliminar un item (DELETE)
 function deleteItem(id) {
-  if (confirm('¿Estás seguro de que quieres eliminar este item?')) {
-    try {
-      const response = fetch(`${apiUrl}/${id}`, {
-        method: 'DELETE',
-      });
+  if (!token) {
+    alert("Debes iniciar sesión para eliminar un item.");
+    window.location.href = '../index.html'; // Redirigir al login si no hay token
+    return;
+  }
 
-      try {
-        getItems(); // Actualizamos la lista de items
-      } catch(error) {
-        console.error('Error al eliminar el item');
+  if (confirm('¿Estás seguro de que quieres eliminar este item?')) {
+    fetch(`${apiUrl}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}` // Incluir el token en el encabezado
       }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    })
+      .then(() => getItems()) // Actualizamos la lista de items después de eliminar
+      .catch(error => console.error('Error al eliminar el item:', error));
   }
 }
 
@@ -118,14 +138,7 @@ function editaritem(item) {
   document.getElementById('item-form').dataset.id = item._id;
 }
 
-
-document.getElementById('obtener_items').addEventListener('click', (e) => {
-  e.preventDefault();
-  getItems();
-  
-  alert("Items obtenidos");
-});
-
+// Limpiar items y formulario
 document.getElementById('limpiar_items').addEventListener('click', (e) => {
   e.preventDefault();
   const itemsLists = document.getElementById('items-list');
@@ -133,4 +146,16 @@ document.getElementById('limpiar_items').addEventListener('click', (e) => {
   document.getElementById('name').value = '';
   document.getElementById('description').value = '';
   document.getElementById('item-form').dataset.id = '';
+});
+
+// Verificar si el usuario es admin (esto es opcional según si el rol está presente en el token)
+function isAdmin() {
+  const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decodificar el token
+  return decodedToken.role === 'admin'; // Verificar si el rol es admin
+}
+
+document.getElementById('obtener_items').addEventListener('click', (e) => {
+  e.preventDefault();
+  getItems();
+  alert("Items obtenidos");
 });

@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import { ConectarDB } from './config/database.js';
 import  router  from './routes/itemesroute.js';
+import adminRoutes from './routes/adminRoutes.js'; // Aquí importas las rutas de admin
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -36,5 +37,7 @@ ConectarDB();
 app.use('/api/auth', authRoutes);
 app.use('/api/items', router);
 
+// Rutas de administración (solo admin puede acceder a estas)
+app.use('/api/admin', adminRoutes);  
 
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));

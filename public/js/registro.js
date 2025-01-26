@@ -19,6 +19,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         if (response.ok) {
             localStorage.setItem('token', data.token);
             alert('Usuario Registrado con exito');
+            window.location.href = '../index.html';
         } else {
             alert(data.message);
         }

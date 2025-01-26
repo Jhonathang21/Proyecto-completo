@@ -1,16 +1,14 @@
-// const mongoose = require('mongoose');
-
-import mongoose from 'mongoose'; // Importamos mongoose
+// backend/src/models/item.js
+import mongoose from 'mongoose';
 
 // Definimos el esquema de un item
 const itemSchema = new mongoose.Schema({
   name: { type: String, required: true }, // Nombre del item, requerido
   description: { type: String, required: true }, // Descripción del item, requerida
-});
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuarios', required: true }, // Relación con el usuario
+}, { timestamps: true }); // La propiedad 'timestamps' agrega automáticamente 'createdAt' y 'updatedAt'
 
 // Creamos el modelo de 'Item' basado en el esquema
-const Item = mongoose.model('item', itemSchema);
+const Item = mongoose.model('Item', itemSchema);
 
-//module.exports = Item; // Exportamos el modelo para usarlo en las rutas
-
-export default Item; // Exportamos el modelo para usarlo en las rutas
+export default Item;

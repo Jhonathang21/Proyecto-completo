@@ -1,14 +1,13 @@
 import express from 'express';
-import { getItems, crearItem, actualizarItem, eliminarItem } from '../controller/itemcontroller.js';
+import { getItems, crearItem, actualizarItem, eliminarItem } from '../controller/itemController.js';
+import { authenticateJWT } from '../middleware/authMiddleware.js'; // Importamos el middleware de autenticación
 
-const router = express.Router();// importa el registro y login de authController
+const router = express.Router();
 
-
-router.get('/', getItems); // esto crea una ruta para el método GET
-router.post('/', crearItem) // esto crea una ruta para el método POST
-router.put('/:id', actualizarItem) // esto crea una ruta para el método POST
-router.delete('/:id', eliminarItem) // esto crea una ruta para el método DELETE
-
+// Solo los usuarios autenticados pueden ver y crear ítems
+router.get('/', authenticateJWT, getItems); // Obtener los ítems del usuario autenticado
+router.post('/', authenticateJWT, crearItem); // Crear un ítem (vinculado al usuario autenticado)
+router.put('/:id', authenticateJWT, actualizarItem); // Actualizar un ítem
+router.delete('/:id', authenticateJWT, eliminarItem); // Eliminar un ítem
 
 export default router;
-

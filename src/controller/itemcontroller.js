@@ -5,25 +5,30 @@ import Item from '../models/item.js'; // Importamos el modelo Item
 const router = express.Router();
 
 
+// Obtener los ítems creados por el usuario autenticado
 export const getItems = async (req, res) => {
     try {
-        // Obtenemos todos los items desde la base de datos
-        const items = await Item.find();
-        // Respondemos con los items obtenidos
-        res.status(200).json(items);
-      } catch (error) {
-        // Si ocurre un error, respondemos con código 500 y el mensaje de error
-        res.status(500).json({ message: error.message });
-      }
-    };
+      const userId = req.userId; // El ID del usuario viene del token JWT
+      const items = await Item.find({ user: userId }); // Filtramos los ítems por el usuario
+  
+      res.status(200).json(items); // Respondemos con los ítems encontrados
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 
 
+// Crear un nuevo ítem, vinculado al usuario autenticado
 export const crearItem = async (req, res) => {
     try {
-        // Creamos una nueva instancia del modelo Item con los datos recibidos en el cuerpo de la solicitud
-        const newItem = new Item(req.body);
-        // Guardamos el nuevo item en la base de datos
-        await newItem.save();
+      const { name, description } = req.body;
+      const userId = req.userId; // El ID del usuario viene del token JWT
+  
+      // Creamos una nueva instancia del modelo Item con los datos recibidos y el ID del usuario
+      const newItem = new Item({ name, description, user: userId });
+  
+      // Guardamos el nuevo item en la base de datos
+      await newItem.save();
         // Respondemos con el item creado y código de estado 201 (Creado)
         res.status(201).json(newItem);
       } catch (error) {
