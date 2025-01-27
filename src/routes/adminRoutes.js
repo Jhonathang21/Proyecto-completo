@@ -1,7 +1,7 @@
 // backend/src/routes/adminRoutes.js
 import express from 'express';
 import { obtenerUsuarios } from '../controller/adminController.js';
-import { checkAdminRole } from '../middleware/authMiddleware.js';
+import { checkAdminRole } from '../middleware/adminMiddleware.js';
 
 const router = express.Router();
 

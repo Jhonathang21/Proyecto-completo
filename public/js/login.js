@@ -16,7 +16,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
         if (response.ok) {
             localStorage.setItem('token', data.token); // Almacena el token
-
+            localStorage.setItem('user', JSON.stringify(data.usuario)); // Guardar los datos del usuario (nombre, email, rol)
+            
             // Decodificar el token JWT para obtener el rol del usuario
             const decodedToken = JSON.parse(atob(data.token.split('.')[1])); // Decodifica el token JWT
             const userRole = decodedToken.role; // Obtiene el rol del usuario
@@ -35,3 +36,6 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         alert('Hubo un error al iniciar sesión');
     }
 });
+
+
+

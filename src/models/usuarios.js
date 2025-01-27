@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
   usuario: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, default: 'user', enum: ['user', 'admin'] }, // Nuevo campo para el rol
+  role: { type: String, default: 'user', enum: ['user', 'admin'] }, // Nuevo campo para el rol enum para que solo pueda ser user o admin
 });
 
 // esta función se ejecuta antes de guardar un nuevo usuario y cifra la contraseña antes de guardar

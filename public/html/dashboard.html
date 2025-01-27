@@ -1,30 +1,48 @@
-<!-- frontend/public/html/dashboard.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="../css/style.css"> <!-- Tu archivo de estilos -->
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <div id="dashboard-container">
-        <h1 id="welcomeMessage"></h1> <!-- Mensaje de bienvenida -->
-        <table id="user-table">
-            <thead>
-                <tr>
-                    <th>Usuario</th>
-                    <th>Email</th>
-                    <th>Rol</th>
-                </tr>
-            </thead>
-            <tbody id="user-list">
-                <!-- Aquí se insertarán los usuarios dinámicamente -->
-            </tbody>
-        </table>
-        <button id="logoutBtn">Cerrar sesión</button>
-    </div>
+    <header>
+        <div id="welcome-container">
+            <h1 id="welcomeMessage"></h1>
+        </div>
+        <div id="account-container">
+            <div id="account-icon" >
+                <span id="account-name">Cuenta</span>
+            </div>
+            <div id="user-info">
+                <!-- Aquí se mostrarán los detalles del usuario cuando se haga clic en el icono -->
+            </div>
+        </div>
+    </header>
+   
+    <aside>
+        
+    </aside>
 
-    <script src="../js/dashboard.js"></script> <!-- Tu archivo de script -->
+    <main>
+        <div id="dashboard-container">
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list">
+                    <!-- Aquí se insertarán los usuarios dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <button id="logoutBtn">Cerrar sesión</button>
+    </main>
+
+    <script src="../js/dashboard.js"></script>
 </body>
 </html>

@@ -36,7 +36,11 @@ export const login = async (req, res) => { // req es la solicitud y res es la re
     const isMatch = await user.comparePassword(password); // compara la contraseña recibida con la contraseña del usuario
     if (!isMatch) return res.status(400).json({ message: 'Credenciales inválidas' }); // si la contraseña no coincide devuelve un mensaje de error
 
-    const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user._id, 
+                              role: user.role, 
+                              usuario: user.usuario, 
+                              email: user.email 
+                            }, process.env.JWT_SECRET, { expiresIn: '1h' });
 // Retornar el token y el rol del usuario
     res.json({ message: 'Inicio de sesión exitoso', token }); // devuelve un mensaje de exito y el token
   } catch (error) {

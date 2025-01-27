@@ -16,6 +16,7 @@ body {
     background-color: #3a4a7c; /* Color más oscuro que contrasta con los tonos pastel */
     padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
   }
   
   nav ul {

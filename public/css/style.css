@@ -5,9 +5,11 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    font-family: Arial, sans-serif;
+    min-height: 100vh
 }
 
 .container {
@@ -50,4 +52,133 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+
+/* Estilos del header */
+header {
+    background-color: #3a4a7c;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+#welcomeMessage {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+#account-container {
+    position: relative;
+    
+}
+
+#account-icon {
+    cursor: pointer;
+    background-color: #6db9b8;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#user-info {
+    display: none;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    color: black
+}
+
+/* Estilos del main */
+main {
+    flex-grow: 1;
+    padding: 20px;
+    margin-top: 70px; /* Ajusta este valor según la altura de tu header */
+}
+
+#dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#user-table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#user-table th, #user-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#user-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#logoutBtn {
+    background-color: #f76c6c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#logoutBtn:hover {
+    background-color: #d94d4d;
+}
+
+aside{
+    height: 100%;
+    background-color: #3a4a7c;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #account-container {
+        margin-top: 10px;
+    }
+
+    #user-info {
+        width: calc(100% - 40px);
+        right: -20px;
+    }
+
+    main {
+        margin-top: 120px; /* Ajusta este valor para dispositivos móviles */
+    }
 }
