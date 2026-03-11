@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Verificar si el usuario tiene el rol 'admin' en el token
   const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decodificamos el token para obtener los datos
   const userRole = decodedToken.role;
-  const usuario = decodedToken.usuario; // Extraemos el nombre de usuario
+  const usuario = decodedToken.username; // Extraemos el nombre de usuario
   const email = decodedToken.email; // Extraemos el email del usuario
 
   // Mostrar los datos del usuario en el icono de cuenta
