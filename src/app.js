@@ -39,4 +39,4 @@ app.use('/api/items', router);
 // Rutas de administración (solo admin puede acceder a estas)
 app.use('/api/admin', adminRoutes);  
 
-app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
+// app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
