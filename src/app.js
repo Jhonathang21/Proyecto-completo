@@ -8,6 +8,7 @@ import  router  from './routes/itemesroute.js';
 import adminRoutes from './routes/adminRoutes.js'; // Aquí importas las rutas de admin
 import path from 'path';
 import { fileURLToPath } from 'url';
+import serverless from "serverless-http"
 
 dotenv.config();
 
@@ -43,4 +44,6 @@ app.use(express.static(path.join(__dirname,'../public')));
     })
 // app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
 
-export default app
+// export default app
+
+export const handler = serverless(app)
