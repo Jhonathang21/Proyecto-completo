@@ -17,12 +17,7 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-    app.use(express.static(path.join(__dirname,'../public')));
-
-    app.get('/',(req, res) => {
-        const indexPath = path.join(__dirname + `../public/index.html`)
-        res.sendFile(indexPath)
-    })
+    
 
 
 // Middleware
@@ -39,6 +34,13 @@ app.use('/api/items', router);
 // Rutas de administración (solo admin puede acceder a estas)
 app.use('/api/admin', adminRoutes);  
 
+
+app.use(express.static(path.join(__dirname,'../public')));
+
+    app.get('/',(req, res) => {
+        const indexPath = path.join(__dirname + `../public/index.html`)
+        res.sendFile(indexPath)
+    })
 // app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
 
 export default app
