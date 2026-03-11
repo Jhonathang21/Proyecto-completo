@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+// const PORT = process.env.PORT || 5000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,3 +40,5 @@ app.use('/api/items', router);
 app.use('/api/admin', adminRoutes);  
 
 // app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
+
+export default app
